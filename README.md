@@ -1,6 +1,6 @@
-<img src="/img/webhooker.jpg" width="50%" />
-# Webhook Sitio Pé de Serra
+<img src="/img/webhooker.jpg">
 
+# Webhook Sitio Pé de Serra
 
 ## O que é Webhook
 
