@@ -1,5 +1,8 @@
+# Webhook Sitio Pé de Serra
 
-## O que é webhook
+
+
+## O que é Webhook
 
 Um webhook é um método de comunicação entre sistemas, onde uma aplicação envia dados para outra de maneira automática e em tempo real quando um evento específico ocorre. Em vez de a aplicação de destino precisar solicitar informações repetidamente (o que é conhecido como "polling"), o webhook notifica assim que há uma atualização ou evento, proporcionando uma comunicação mais rápida e eficiente.
 
@@ -28,7 +31,7 @@ Um webhook funciona como um "ponto de escuta" que recebe dados automaticamente. 
 
 ## Diagrama de conexões 
 
-
+<img src="/img/arquitetura.png" width="50%" />
 
 ##  webhookPdS
 
