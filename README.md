@@ -94,6 +94,7 @@ Arquivo principal que recebe o webhook, registra o log e publica a mensagem no b
 
 ### Página HTML para Visualizar Logs (public/log_viewer.php)
 
+```
 Cabeçalho HTML (<head>):
         Define o título e a codificação da página.
         Inclui a referência ao arquivo CSS (styles.css) localizado no diretório css/ para aplicar estilos e tornar a página responsiva.
@@ -114,7 +115,7 @@ Como Funciona
     CSS (styles.css): Aplica estilos para melhorar a aparência da tabela e tornar a página responsiva.
     JavaScript (scripts.js): Faz uma solicitação periódica a log_data.php para obter novos logs e atualiza o conteúdo da tabela automaticamente.
     Tabela Dinâmica: O conteúdo da tabela é preenchido e atualizado com dados JSON de log_data.php, o que permite a visualização em tempo real dos eventos de webhook recebidos.
-
+```
  Este log_viewer.php fornece uma interface prática e responsiva para visualizar logs do webhook em tempo real.
 
 ### Arquivo para Carregar os Logs em JSON (public/log_data.php)
