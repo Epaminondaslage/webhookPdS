@@ -41,69 +41,250 @@ Projeto para rodar em servidor Linux 10.0.0.5 , com os arquivos e diretórios or
 ```
 http://10.0.0.5/var/www/html/webhookPdS
 ```
-## Estrurura do Serviço
+## Estrurura do Projeto
 
 ```
-/var/www/html/webhookPdS
-├── css
-│   └── style.css          # Estilo para o HTML
-├── html
-│   └── index.html         # Página HTML com log dinâmico
-├── js
-│   └── script.js          # JavaScript para atualização dinâmica do log
-├── php
-│   ├── webhook.php        # Arquivo PHP que recebe e processa o webhook
-│   └── mqtt_client.php    # Classe para lidar com a conexão MQTT  
-├── logs
-│   └── log.txt            # Arquivo de log para armazenar as requisições
-└── shell
-    └── webhook_monitor.sh # Script para manter o servidor ativo e subscrito
+/var/www/html/webhookPdS/
+├── public/                      
+│   ├── index.php                # Página inicial ou ponto de entrada (opcional)
+│   ├── webhook.php              # Endpoint para o servidor de webhook
+│   ├── log_viewer.php           # Página HTML para visualizar os logs
+│   └── log_data.php             # API que fornece os logs em JSON para o frontend
+│
+├── css/
+│   └── styles.css               # CSS para estilos e responsividade
+│
+├── js/
+│   └── scripts.js               # JavaScript para atualização dinâmica dos logs
+│
+├── src/                         
+│   ├── MqttClient.php           # Classe para gerenciar a conexão e publicação MQTT
+│   └── WebhookHandler.php       # Classe para manipular os dados do webhook
+│
+├── config/                      
+│   └── config.php               # Configurações gerais do projeto (MQTT, etc.)
+│
+├── logs/                        
+│   └── webhook_log.txt          # Log dos eventos de webhook recebidos
+│
+├── scripts/
+│   └── monitor_connections.sh   # Script para verificar e manter ativa a conexão MQTT
+│
+├── vendor/                      # Diretório para dependências externas (composer)
+│
+└── README.md                    # Documentação do projeto
+
 ```
 
-### Criação do Diretório de Log
+### Diretorio config (config/config.php)
 
-No terminal do servidor (10.0.0.5), crie o diretório para armazenar os logs:
+Arquivo de Configuração. Define as configurações do broker MQTT, como servidor, porta, usuário, senha e ID do cliente.
+
+### Classe MQTT (src/MqttClient.php)
+
+Essa classe gerencia a conexão e publicação no broker MQTT.
+
+### Classe Webhook Handler (src/WebhookHandler.php)
+
+Classe para tratar e registrar logs do webhook.
+
+### Servidor de Webhook (public/webhook.php)
+
+Arquivo principal que recebe o webhook, registra o log e publica a mensagem no broker MQTT.
+
+### Página HTML para Visualizar Logs (public/log_viewer.php)
+
+Cabeçalho HTML (<head>):
+        Define o título e a codificação da página.
+        Inclui a referência ao arquivo CSS (styles.css) localizado no diretório css/ para aplicar estilos e tornar a página responsiva.
+
+Conteúdo da Página (<body>):
+        Um div com a classe container que centraliza o conteúdo e aplica o estilo definido no CSS.
+        Um título (<h1>) e uma descrição (<p>) que explicam o propósito da tabela.
+        Uma tabela com thead e tbody, onde:
+            O cabeçalho da tabela (<thead>) define duas colunas: "Data e Hora" e "Mensagem".
+            O corpo da tabela (<tbody id="log-table-body">) é onde os dados de logs serão carregados dinamicamente.
+
+Referência ao JavaScript (<script>):
+        A linha <script src="../js/scripts.js"></script> carrega o JavaScript que atualiza a tabela de logs.
+        O arquivo scripts.js executa a função loadLogs a cada 5 segundos para atualizar o conteúdo da tabela com os logs mais recentes obtidos de log_data.php.
+
+Como Funciona
+
+    CSS (styles.css): Aplica estilos para melhorar a aparência da tabela e tornar a página responsiva.
+    JavaScript (scripts.js): Faz uma solicitação periódica a log_data.php para obter novos logs e atualiza o conteúdo da tabela automaticamente.
+    Tabela Dinâmica: O conteúdo da tabela é preenchido e atualizado com dados JSON de log_data.php, o que permite a visualização em tempo real dos eventos de webhook recebidos.
+
+ Este log_viewer.php fornece uma interface prática e responsiva para visualizar logs do webhook em tempo real.
+
+### Arquivo para Carregar os Logs em JSON (public/log_data.php)
+
+API para fornecer logs em JSON.
+
+### Script de Monitoramento de Conexão (scripts/monitor_connections.sh)
+
+Script para monitorar e manter ativa a conexão com o broker MQTT.
+
+### Configurar Permissões e Cron
+
+* Criar o diretório de logs e configure as permissões:
 
 ```
 sudo mkdir -p /var/www/html/webhookPdS/logs
-sudo touch /var/www/html/webhookPdS/logs/log.txt
-sudo chmod 777 /var/www/html/webhookPdS/logs/log.txt  # Permissão de escrita para o log
-```
-# Comando cron para executar a cada minuto
-
-```
-/var/www/html/webhookPdS/shell/webhook_monitor.sh
+sudo touch /var/www/html/webhookPdS/logs/webhook_log.txt
+sudo chown -R www-data:www-data /var/www/html/webhookPdS/logs
+sudo chmod -R 775 /var/www/html/webhookPdS/logs
 ```
 
-### Documentação do Funcionamento
-
-### Definições do Broker MQTT
+* Adicione o script de monitoramento ao cron para rodar a cada minuto:
 
 ```
-brokerIp = "10.0.0.32";
-brokerPort = 1883;
-topic = "alarme";
-username = "mqtt";
-password = "planeta";
+sudo crontab -e
 ```
-
-#### Webhook (PHP):
-        
-O webhook.php recebe uma requisição JSON com o valor da variável variavel, que indica o alarme a ser acionado. A variável mqtt_client.php gerencia a conexão e o envio do payload MQTT ao broker. Dependendo do valor de variavel, o payload MQTT será enviado como alarme 1 on ou alarme 2 on.
+* Adicione a linha:
 
 ```
-PHP_PATH="/usr/bin/php"
-WEBHOOK_PATH="/var/www/html/webhookPdS/php/webhook.php"
-LOG_FILE="/var/www/html/webhookPdS/logs/monitor.log"
+/var/www/html/webhookPdS/scripts/monitor_connections.sh >> /var/www/html/webhookPdS/logs/monitor.log 2>&1
 ```
-    
 
-#### Interface Web (HTML e JS):
+ ### index.php (/public/index.php)
 
-A interface index.html exibe um log dinâmico dos payloads recebidos e enviados ao broker. Os botões enviam o payload alarme 1 off ou alarme 2 off, dependendo do acionamento.
+Este arquivo serve como a página inicial do sistema, fornecendo links para acessar a página de visualização de logs e qualquer outra funcionalidade adicional que você queira adicionar no futuro.
 
-#### Script de Monitoramento (Shell):
+* Cabeçalho HTML:
+  
+Define o título e a codificação da página.
+Inclui um pequeno estilo embutido para ajustar a aparência dos links de navegação.
 
-webhook_monitor.sh garante que o servidor PHP para o webhook esteja sempre ativo. O script pode ser configurado no cron para rodar a cada minuto.
+* Conteúdo Principal:
 
-        
+Uma seção container centralizada que contém o título, uma breve descrição, e botões de navegação.
+
+* Botões de Navegação:
+
+Visualizar Logs de Webhook: Um link para acessar a página log_viewer.php, onde é possível visualizar os logs registrados.
+Endpoint Webhook: Um link para webhook.php, que pode ser útil para testes manuais de requisições (embora normalmente esse endpoint seja acionado por sistemas externos).
+
+* O index.php oferece uma interface básica e funcional para navegar pelas principais partes do sistema. Esse diretório é geralmente onde ficam os arquivos acessíveis publicamente na web, permitindo que index.php sirva como a página inicial do projeto, acessível pelo navegador no endereço:
+  
+```
+http://seu_dominio_ou_ip/webhookPdS/public/index.php
+```
+
+### Arquivo CSS (css/styles.css)
+
+* Explicação dos Estilos
+
+    Estilos Gerais:
+        Define uma aparência limpa e centralizada, com background-color suave e fonte legível.
+        display: flex e align-items: center centralizam o conteúdo verticalmente.
+
+    Container:
+        Configuração do container .container com uma largura máxima, fundo branco, e uma borda suave.
+        Aplica um box-shadow para um leve efeito de elevação.
+
+    Título Principal (h1):
+        Define a cor, o tamanho e a margem para o título principal das páginas.
+
+    Botões de Link (.link-button):
+        Estiliza os botões de navegação como links destacados.
+        Inclui background-color verde e uma transição suave ao passar o mouse.
+
+    Tabela de Logs:
+        Estilos para table, th, e td usados na página de visualização de logs (log_viewer.php).
+        Bordas e cores para melhorar a legibilidade, além de um efeito de hover para as linhas.
+
+    Estilos Responsivos:
+        Ajusta o tamanho da fonte e o espaçamento em dispositivos com largura de até 600px para garantir que o layout fique adequado em telas menores.
+
+* Salve esse CSS como styles.css dentro de /var/www/html/webhookPdS/css/, e ele será aplicado automaticamente ao index.php e outras páginas que o referenciem.
+
+### JavaScript (js/scripts.js)
+
+O arquivo scripts.js faz a atualização dinâmica dos logs exibidos na página log_viewer.php. Este JavaScript utiliza fetch para obter os dados dos logs periodicamente e atualizá-los na tabela sem a necessidade de recarregar a página.
+
+* Explicação do Código JavaScript
+
+    loadLogs: Esta função faz uma solicitação ao log_data.php para obter os logs em formato JSON.
+        Limpa a tabela de logs antes de adicionar novos dados.
+        Cria uma nova linha (tr) para cada log, com duas células (td): uma para a data e outra para a mensagem.
+        Adiciona a linha à tabela.
+
+    Atualização Automática: Após o carregamento inicial dos logs, a função loadLogs é chamada a cada 5 segundos para manter a tabela atualizada em tempo real.
+
+ ### O diretório vendor/ 
+ 
+É onde ficam as dependências externas do projeto, que são gerenciadas pelo Composer, uma ferramenta popular de gerenciamento de dependências para PHP. No caso deste projeto, **vendor/** armazenaria a biblioteca phpMQTT para conexão com o broker MQTT, bem como outras dependências que o projeto possa utilizar. 
+
+O diretório **vendor/** é essencial para armazenar dependências externas instaladas via Composer, permitindo que o projeto utilize bibliotecas externas, como phpMQTT. Este diretório não deve ser editado manualmente, pois o Composer é responsável por gerenciar seu conteúdo com base no composer.json. 
+
+
+* Passos para Configurar o Diretório vendor/ com Composer
+
+    Instalar o Composer (se ainda não tiver)
+
+    Se o Composer ainda não está instalado no servidor, você pode instalar com os comandos abaixo:
+
+```
+curl -sS https://getcomposer.org/installer | php
+sudo mv composer.phar /usr/local/bin/composer
+```
+
+* Adicionar um Arquivo composer.json
+
+No diretório raiz do projeto (/var/www/html/webhookPdS), crie um arquivo composer.json para especificar as dependências, como phpMQTT.
+
+Exemplo de composer.json:
+
+```
+{
+    "require": {
+        "bluerhinos/phpmqtt": "dev-master"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/bluerhinos/phpMQTT"
+        }
+    ]
+}
+```
+
+Esse arquivo diz ao Composer para instalar a biblioteca phpMQTT diretamente do repositório GitHub.
+
+* Instalar as Dependências com Composer
+
+No diretório raiz do projeto, execute o comando:
+
+```
+composer install
+```
+
+Isso criará o diretório vendor/ e instalará o phpMQTT, além de gerar os arquivos vendor/autoload.php e composer.lock, que são usados pelo Composer para gerenciar automaticamente as classes.
+
+* Incluir o Autoloader no Projeto
+
+Em todos os arquivos PHP que precisam de uma dependência de vendor/, inclua o autoloader do Composer para carregar as classes automaticamente. Exemplo:
+
+ ```
+   require_once __DIR__ . '/../vendor/autoload.php';
+```
+
+* Estrutura do Diretório **vendor/** Após Instalação
+
+Após rodar o **composer install**, o diretório **vendor/** terá a seguinte estrutura:
+
+```
+/var/www/html/webhookPdS/vendor/
+├── autoload.php             # Arquivo de autoload gerado pelo Composer
+├── composer/                # Arquivos de gerenciamento do Composer
+├── bluerhinos/              # Diretório com a biblioteca phpMQTT
+│   └── phpmqtt/             # Código da biblioteca phpMQTT
+│       └── phpMQTT.php      # Arquivo principal da biblioteca
+└── other-dependencies/      # Outras dependências, se forem adicionadas
+```
+
+Certifique-se de que o *vendor/* contém as dependências (como phpMQTT), instaladas com o Composer.
+
+
+
