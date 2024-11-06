@@ -1,5 +1,4 @@
 #!/bin/bash
-
 CONFIG_FILE="/var/www/html/webhookPdS/config/config.php"
 MQTT_SERVER=$(php -r "include('$CONFIG_FILE'); echo \$config['mqtt']['server'];")
 MQTT_PORT=$(php -r "include('$CONFIG_FILE'); echo \$config['mqtt']['port'];")

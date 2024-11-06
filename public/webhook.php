@@ -3,7 +3,6 @@ require_once("../config/config.php");
 require_once("../src/MqttClient.php");
 require_once("../src/WebhookHandler.php");
 
-// Configurando cabeçalho para aceitar JSON
 header("Content-Type: application/json");
 
 if ($_SERVER['REQUEST_METHOD'] != 'POST') {
@@ -21,9 +20,7 @@ if (json_last_error() !== JSON_ERROR_NONE || !isset($data['event_type'], $data['
     exit();
 }
 
-// Log do payload
 WebhookHandler::logPayload($data);
-
 $message = WebhookHandler::formatMqttMessage($data);
 $config = require('../config/config.php');
 
@@ -32,7 +29,6 @@ if ($mqttClient->connect()) {
     $topic = "eventos/object_detection_event/" . $data['camera_name'];
     $mqttClient->publish($topic, $message);
     $mqttClient->close();
-
     http_response_code(200);
     echo json_encode(['status' => 'Webhook recebido e enviado ao MQTT com sucesso']);
 } else {

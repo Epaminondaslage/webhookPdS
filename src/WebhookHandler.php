@@ -2,13 +2,11 @@
 
 class WebhookHandler {
     public static function logPayload($data) {
-        // Registra o payload recebido no arquivo de log
         $logEntry = date('Y-m-d H:i:s') . " - " . json_encode($data) . PHP_EOL;
         file_put_contents('/var/www/html/webhookPdS/logs/webhook_log.txt', $logEntry, FILE_APPEND);
     }
 
     public static function formatMqttMessage($data) {
-        // Formata a mensagem para publicação no broker MQTT
         return json_encode([
             'event_type' => $data['event_type'],
             'camera' => [

@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visualização de Logs do Webhook</title>
-    <!-- Referência ao arquivo CSS para estilos e responsividade -->
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
@@ -18,12 +17,9 @@
                     <th>Mensagem</th>
                 </tr>
             </thead>
-            <tbody id="log-table-body">
-                <!-- O conteúdo será carregado dinamicamente pelo JavaScript -->
-            </tbody>
+            <tbody id="log-table-body"></tbody>
         </table>
     </div>
-    <!-- Referência ao arquivo JavaScript para atualização dinâmica dos logs -->
     <script src="../js/scripts.js"></script>
 </body>
 </html>

@@ -1,51 +1,32 @@
-/* Estilos Gerais */
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f9;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
 }
 
-/* Container Geral */
 .container {
     width: 90%;
     max-width: 800px;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin: auto;
     text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Título Principal */
 h1 {
     color: #333;
-    font-size: 24px;
-    margin-top: 0;
 }
 
-/* Botões de Link */
 .link-button {
-    display: inline-block;
-    margin: 15px;
-    padding: 15px 25px;
     background-color: #4CAF50;
     color: white;
-    text-decoration: none;
+    padding: 10px 20px;
     border-radius: 5px;
+    text-decoration: none;
     font-size: 16px;
-    transition: background-color 0.3s;
+    margin: 10px;
 }
 
-.link-button:hover {
-    background-color: #45a049;
-}
-
-/* Estilos para Tabelas (Usado no Log Viewer) */
 table {
     width: 100%;
     border-collapse: collapse;
@@ -54,7 +35,6 @@ table {
 
 th, td {
     padding: 10px;
-    text-align: left;
     border-bottom: 1px solid #ddd;
 }
 
@@ -63,23 +43,9 @@ th {
     color: white;
 }
 
-tr:hover {
-    background-color: #f1f1f1;
-}
-
-/* Estilos Responsivos */
 @media (max-width: 600px) {
-    th, td {
-        padding: 8px;
-        font-size: 14px;
-    }
-
-    h1 {
-        font-size: 18px;
-    }
-
     .link-button {
-        padding: 10px 15px;
         font-size: 14px;
+        padding: 8px 16px;
     }
 }
