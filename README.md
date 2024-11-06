@@ -1,6 +1,6 @@
+<img src="/img/webhooker.jpg">
+
 # Webhook Sitio Pé de Serra
-
-
 
 ## O que é Webhook
 
@@ -33,9 +33,15 @@ Um webhook funciona como um "ponto de escuta" que recebe dados automaticamente. 
 
 <img src="/img/arquitetura.png" width="50%" />
 
-##  webhookPdS
+##  WebhookPdS
 
-Projeto para rodar em servidor Linux 10.0.0.5 , com os arquivos e diretórios organizados conforme a árvore abaixo. O projeto envolve criação de um webhook em PHP que recebe um JSON via POST, processa-o para subscrever em um broker MQTT e exibe o log em uma interface web. o sistema pose ser desativado através de um botao na página html.                
+Projeto para rodar em servidor Linux 10.0.0.5 , com os arquivos e diretórios organizados conforme a árvore abaixo. O projeto envolve criação de um webhook em PHP que recebe um JSON via POST, processa-o para subscrever em um broker MQTT e exibe o log em uma interface web. o sistema pose ser desativado através de um botao na página html.  
+
+**Servidor** 
+```
+http://10.0.0.5/var/www/html/webhookPdS
+```
+## Estrurura do Serviço
 
 ```
 /var/www/html/webhookPdS
@@ -54,10 +60,9 @@ Projeto para rodar em servidor Linux 10.0.0.5 , com os arquivos e diretórios or
     └── webhook_monitor.sh # Script para manter o servidor ativo e subscrito
 ```
 
-
 ### Criação do Diretório de Log
 
-No terminal do servidor, crie o diretório para armazenar os logs:
+No terminal do servidor (10.0.0.5), crie o diretório para armazenar os logs:
 
 ```
 sudo mkdir -p /var/www/html/webhookPdS/logs
@@ -72,17 +77,33 @@ sudo chmod 777 /var/www/html/webhookPdS/logs/log.txt  # Permissão de escrita pa
 
 ### Documentação do Funcionamento
 
+### Definições do Broker MQTT
+
+```
+brokerIp = "10.0.0.32";
+brokerPort = 1883;
+topic = "alarme";
+username = "mqtt";
+password = "planeta";
+```
+
 #### Webhook (PHP):
-        O webhook.php recebe uma requisição JSON com o valor da variável variavel, que indica o alarme a ser acionado.
-        A variável mqtt_client.php gerencia a conexão e o envio do payload MQTT ao broker.
-        Dependendo do valor de variavel, o payload MQTT será enviado como alarme 1 on ou alarme 2 on.
+        
+O webhook.php recebe uma requisição JSON com o valor da variável variavel, que indica o alarme a ser acionado. A variável mqtt_client.php gerencia a conexão e o envio do payload MQTT ao broker. Dependendo do valor de variavel, o payload MQTT será enviado como alarme 1 on ou alarme 2 on.
+
+```
+PHP_PATH="/usr/bin/php"
+WEBHOOK_PATH="/var/www/html/webhookPdS/php/webhook.php"
+LOG_FILE="/var/www/html/webhookPdS/logs/monitor.log"
+```
+    
 
 #### Interface Web (HTML e JS):
-        A interface index.html exibe um log dinâmico dos payloads recebidos e enviados ao broker.
-        Os botões enviam o payload alarme 1 off ou alarme 2 off, dependendo do acionamento.
+
+A interface index.html exibe um log dinâmico dos payloads recebidos e enviados ao broker. Os botões enviam o payload alarme 1 off ou alarme 2 off, dependendo do acionamento.
 
 #### Script de Monitoramento (Shell):
-        webhook_monitor.sh garante que o servidor PHP para o webhook esteja sempre ativo.
-        O script pode ser configurado no cron para rodar a cada minuto.
+
+webhook_monitor.sh garante que o servidor PHP para o webhook esteja sempre ativo. O script pode ser configurado no cron para rodar a cada minuto.
 
         
