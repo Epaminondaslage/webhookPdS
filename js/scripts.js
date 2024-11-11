@@ -1,3 +1,10 @@
+/***************************************************************************************************/
+/*         Este arquivo deve ser copiado no diretorio /var/www/html/webhookPdS/js                  */
+/*                                    VERSAO 11 de Novembro 2024                                   */
+/*                  Este js  é executado automaticamente  pelo /webhookPdS/public/index.php        */
+/*                  Arquivo de carregar os logs de forma dinamica                                  */
+/****************************************************************************************************/
+
 document.addEventListener("DOMContentLoaded", function() {
     function loadLogs() {
         fetch("log_data.php")

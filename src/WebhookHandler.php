@@ -1,4 +1,10 @@
 <?php
+//***************************************************************************************************
+//         Este arquivo deve ser copiado no diretorio /var/www/html/webhookPdS/src                  *
+//                                    VERSAO 11 de Novembro 2024                                    *
+//                  Este PHP é executado automaticamente  pelo /webhookPdS/public/index.php         *
+//                função de manipulação do payload do webhook                                       *
+//***************************************************************************************************
 
 class WebhookHandler {
     public static function logPayload($data) {

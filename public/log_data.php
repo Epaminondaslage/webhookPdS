@@ -1,6 +1,13 @@
 <?php
+/***************************************************************************************************
+/         Este arquivo deve ser copiado no diretorio /var/www/html/webhookPdS/public               *
+/                                    VERSAO 11 de Novembro 2024                                    *
+/                  Este PHP é executado automaticamente  pelo /webhookPdS/public/index.php         *
+/                Arquivo que mostra os logs dd webhook enviado pelo visicomp                       *
+/***************************************************************************************************/
 error_reporting(E_ALL);
 ini_set('display_errors', '1');
+
 $logFile = '../logs/webhook_log.txt';
 $response = ['logs' => []];
 

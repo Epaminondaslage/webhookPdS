@@ -1,4 +1,12 @@
 <!DOCTYPE html>
+<!--
+****************************************************************************************************
+*         Este arquivo deve ser copiado no diretorio /var/www/html/webhookPdS/public               *
+*                                    VERSAO 11 de Novembro 2024                                    *
+*                  Este HTML é executado automaticamente  pelo /webhookPdS/public/index.php        *
+*                     Arquivo de visualização de log de webhook do sistema de Alarme               *
+****************************************************************************************************
+-->
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
