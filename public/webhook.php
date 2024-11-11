@@ -40,6 +40,7 @@ if ($mqttClient->connect()) {
         $mqttClient->publish($topic, 'A');
     }
 
+
     if($data['camera_name'] === '123'){
         $topic = "O1";
         $mqttClient->publish($topic, 'A');
