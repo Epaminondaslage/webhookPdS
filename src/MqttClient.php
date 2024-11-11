@@ -2,13 +2,17 @@
 // Inclui o autoloader do Composer
 require_once __DIR__ . '/../vendor/autoload.php';
 
+// Inclui diretamente o arquivo da classe phpMQTT com o namespace correto
+require_once __DIR__ . '/../vendor/bluerhinos/phpmqtt/phpMQTT.php';
+
 class MqttClient {
     private $mqtt;
     private $config;
 
     public function __construct($config) {
         $this->config = $config;
-        $this->mqtt = new \phpMQTT($config['server'], $config['port'], $config['client_id']);
+        // Utilize o namespace completo para instanciar a classe
+        $this->mqtt = new \Bluerhinos\phpMQTT($config['server'], $config['port'], $config['client_id']);
     }
 
     public function connect() {
@@ -23,4 +27,3 @@ class MqttClient {
         $this->mqtt->close();
     }
 }
-

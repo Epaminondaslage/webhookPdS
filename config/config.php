@@ -2,10 +2,10 @@
 // Arquivo de configuração com as credenciais de conexão MQTT
 $config = [
     'mqtt' => [
-        'server' => 'broker.endereco.com',
+        'server' => '10.0.0.32',
         'port' => 1883,
-        'username' => 'usuario',
-        'password' => 'senha',
+        'username' => 'mqtt',
+        'password' => 'planeta',
         'client_id' => 'webhook_server'
     ]
 ];
