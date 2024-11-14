@@ -307,8 +307,11 @@ webhookPdS/
     └── autoload.php                 # Carregador automático para dependências do MQTT
 
 ```
-Pasta **public/**: Contém os arquivos de frontend acessíveis pelo navegador e os scripts principais PHP que interagem com o MQTT.
-Pasta **css/**: Armazena o arquivo styles.css, que define a aparência visual do projeto.
-Pasta **js/**: Inclui o script_status_alarm.js, responsável pelo controle e atualização do alarme no frontend.
-Pasta **vendor/**: Contém o autoload.php e outras dependências necessárias, como a biblioteca MQTT.
+* Pasta **public/**: Contém os arquivos de frontend acessíveis pelo navegador e os scripts principais PHP que interagem com o MQTT.
+
+* Pasta **css/**: Armazena o arquivo styles.css, que define a aparência visual do projeto.
+
+* Pasta **js/**: Inclui o script_status_alarm.js, responsável pelo controle e atualização do alarme no frontend.
+
+* Pasta **vendor/**: Contém o autoload.php e outras dependências necessárias, como a biblioteca MQTT.
 
