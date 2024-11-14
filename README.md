@@ -295,7 +295,6 @@ webhookPdS/
 ├── public/
 │   ├── status_alarm.html            # Página de controle do alarme e exibição de logs
 │   ├── toggle_alarm.php             # Script PHP para alternar o estado do alarme no MQTT
-│   ├── get_alarm_status.php         # Script PHP para obter o status do alarme
 │   ├── get_log.php                  # Script PHP que exibe logs (antes de ajustes adicionais)
 │   └── img/
 │       ├── alarm.jpg                # Imagem para cabeçalho do alarme
