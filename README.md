@@ -288,4 +288,28 @@ Após rodar o **composer install**, o diretório **vendor/** terá a seguinte es
 Certifique-se de que o *vendor/* contém as dependências (como phpMQTT), instaladas com o Composer.
 
 
+### Opção Controle de Alarme no menu Index.html
+
+```
+webhookPdS/
+├── public/
+│   ├── status_alarm.html            # Página de controle do alarme e exibição de logs
+│   ├── toggle_alarm.php             # Script PHP para alternar o estado do alarme no MQTT
+│   ├── get_alarm_status.php         # Script PHP para obter o status do alarme
+│   ├── get_log.php                  # Script PHP que exibe logs (antes de ajustes adicionais)
+│   └── img/
+│       ├── alarm.jpg                # Imagem para cabeçalho do alarme
+│       ├── status_alarm.jpg         # Imagem de status do alarme
+├── css/
+│   └── styles.css                   # Arquivo de estilo CSS para as páginas HTML
+├── js/
+│   └── script_status_alarm.js       # Script JavaScript para controle de status do alarme
+└── vendor/
+    └── autoload.php                 # Carregador automático para dependências do MQTT
+
+```
+Pasta **public/**: Contém os arquivos de frontend acessíveis pelo navegador e os scripts principais PHP que interagem com o MQTT.
+Pasta **css/**: Armazena o arquivo styles.css, que define a aparência visual do projeto.
+Pasta **js/**: Inclui o script_status_alarm.js, responsável pelo controle e atualização do alarme no frontend.
+Pasta **vendor/**: Contém o autoload.php e outras dependências necessárias, como a biblioteca MQTT.
 
