@@ -1,4 +1,4 @@
-<img src="/img/webhooker.jpg">
+<img src="/img/webhooker.jpg" width="40%" />>
 
 # Webhook Sitio Pé de Serra
 
@@ -31,7 +31,7 @@ Um webhook funciona como um "ponto de escuta" que recebe dados automaticamente. 
 
 ## Diagrama de conexões 
 
-<img src="/img/arquitetura.png" width="50%" />
+<img src="/img/arquitetura.png" width="40%" />
 
 ##  WebhookPdS
 
@@ -45,6 +45,7 @@ Projeto para rodar em servidor Linux 10.0.0.5 , com os arquivos e diretórios or
 http://10.0.0.5/webhookPdS/public/webhook.php
 ´´´
 **JSON do Visicomp**:
+
 ´´´ 
 {
   "event_type": "object_detection_event",
@@ -65,6 +66,7 @@ http://10.0.0.5/webhookPdS/public/webhook.php
 ´´´
 https://jsonviewer.stack.hu/ 
 ´´´
+
 <img src="/img/jsonviewer.png" width="40%" />
 
 **Postman**
