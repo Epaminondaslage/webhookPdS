@@ -1,8 +1,22 @@
 ## Sistema de Alarme por Vídeo Analítico
 
-<img src="/img/webhooker.jpg" width="10%" />
+## Arquitetura do Sistema
+
+<img src="/img/arquitetura.png" width="40%" />
+
+## Soluções empregadas
+
+* Visicomp
+* Webhook
+* MQTT
+* Acionamentos por Esp32
+# Visicomp
+
+
 
 # Webhook Sítio Pé de Serra
+
+<img src="/img/webhooker.jpg" width="10%" />
 
 ## O que é Webhook
 
@@ -30,10 +44,6 @@ Um webhook funciona como um "ponto de escuta" que recebe dados automaticamente. 
 * Eficiência: Diminui o número de chamadas desnecessárias entre sistemas.
 * Tempo Real: Notifica assim que um evento ocorre, ao contrário do polling, que pode ter atrasos.
 * Escalabilidade: Suporta uma comunicação mais rápida e simplificada entre vários sistemas.
-
-## Diagrama de conexões 
-
-<img src="/img/arquitetura.png" width="40%" />
 
 ##  WebhookPdS
 
@@ -327,8 +337,13 @@ Após rodar o **composer install**, o diretório **vendor/** terá a seguinte es
 
 Certifique-se de que o *vendor/* contém as dependências (como phpMQTT), instaladas com o Composer.
 
+## MQTT
 
-### Opção Controle de Alarme no menu Index.html
+sdsdmwevfgfygcfygefcyfctyrfgcyfygfy
+
+##  Controle de Alarme no menu Index.html
+
+Regra de disparo de alarme e envio de acionamento por MQTT
 
 ```
 webhookPdS/
@@ -348,10 +363,7 @@ webhookPdS/
 
 ```
 * Pasta **public/**: Contém os arquivos de frontend acessíveis pelo navegador e os scripts principais PHP que interagem com o MQTT.
-
 * Pasta **css/**: Armazena o arquivo styles.css, que define a aparência visual do projeto.
-
 * Pasta **js/**: Inclui o script_status_alarm.js, responsável pelo controle e atualização do alarme no frontend.
-
 * Pasta **vendor/**: Contém o autoload.php e outras dependências necessárias, como a biblioteca MQTT.
 
