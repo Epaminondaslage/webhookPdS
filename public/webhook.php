@@ -42,17 +42,59 @@ if ($mqttClient->connect()) {
     // basta programar em ifs no objeto $data (que vem as infos da camera) e enviar mensagem para o mqtt usando a biblioteca no formato abaixo
     //$data['event']['camera_id']
 
-    if($data['camera_name'] === 'abc'){
-        $topic = "O2";
-        $mqttClient->publish($topic, 'A');
-    }
-
-
-    if($data['camera_name'] === '123'){
+    // Atua no Arduino Mini 01
+    if($data['camera_name'] === 'Abcd'){
         $topic = "O1";
         $mqttClient->publish($topic, 'A');
     }
+    if($data['camera_name'] === 'aBcd'){
+        $topic = "O1";
+        $mqttClient->publish($topic, 'B');
+    }
+    if($data['camera_name'] === 'abCd'){
+        $topic = "O1";
+        $mqttClient->publish($topic, 'C');
+    }
+    if($data['camera_name'] === 'abcD'){
+        $topic = "O1";
+        $mqttClient->publish($topic, 'D');
+    }
 
+    // Atua no Arduino Mini 02
+    if($data['camera_name'] === 'Abcd'){
+        $topic = "O2";
+        $mqttClient->publish($topic, 'A');
+    }
+    if($data['camera_name'] === 'aBcd'){
+        $topic = "O2";
+        $mqttClient->publish($topic, 'B');
+    }
+    if($data['camera_name'] === 'abCd'){
+        $topic = "O2";
+        $mqttClient->publish($topic, 'C');
+    }
+    if($data['camera_name'] === 'abcD'){
+        $topic = "O2";
+        $mqttClient->publish($topic, 'D');
+    }
+
+    // Atua no Arduino Mini 03
+    if($data['camera_name'] === 'Abcd'){
+        $topic = "O3";
+        $mqttClient->publish($topic, 'A');
+    }
+    if($data['camera_name'] === 'aBcd'){
+        $topic = "O3";
+        $mqttClient->publish($topic, 'B');
+    }
+    if($data['camera_name'] === 'abCd'){
+        $topic = "O3";
+        $mqttClient->publish($topic, 'C');
+    }
+    if($data['camera_name'] === 'abcD'){
+        $topic = "O3";
+        $mqttClient->publish($topic, 'D');
+    }
     $mqttClient->close();
 
     http_response_code(200);

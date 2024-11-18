@@ -6,7 +6,7 @@
 /****************************************************************************************************/
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: Arial, sans-serif;/* Define a fonte do texto como Arial, com fallback em sans-serif */
     background-color: #f4f4f9;
     margin: 0;
     padding: 0;
@@ -25,11 +25,10 @@ body {
 
 h1 {
     color: #333;
-    font-size: 2em; /* Tamanho de fonte responsivo para cabeçalhos */
 }
 
 .link-button {
-    background-color: #4CAF50;
+    background-color: #000; /* #4CAF50 */
     color: white;
     padding: 10px 20px;
     border-radius: 5px;
@@ -51,7 +50,7 @@ th, td {
 }
 
 th {
-    background-color: #4CAF50;
+    background-color: #000; /*#4CAF50*/
     color: white;
 }
 
