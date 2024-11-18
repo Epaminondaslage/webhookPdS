@@ -37,7 +37,42 @@ Um webhook funciona como um "ponto de escuta" que recebe dados automaticamente. 
 
 Projeto para rodar em servidor Linux 10.0.0.5 , com os arquivos e diretórios organizados conforme a árvore abaixo. O projeto envolve criação de um webhook em PHP que recebe um JSON via POST, processa-o para subscrever em um broker MQTT e exibe o log em uma interface web. o sistema pose ser desativado através de um botao na página html.  
 
-**Servidor** 
+##  JSON 
+
+**URL do JSON**:
+
+´´´
+http://10.0.0.5/webhookPdS/public/webhook.php
+´´´
+**JSON do Visicomp**:
+´´´ 
+{
+  "event_type": "object_detection_event",
+  "event": {
+    "camera_id": 0,
+    "analytics_id": 0,
+    "event_timestamp": "yyyy-mm-ddTHH:ii:ss",
+    "video_filename": "<path_to_video>",
+    "thumbnail_filename": "<path_to_image_thumbnail>"
+  },
+  "camera_name": "cam name",
+  "analytics_name": "analytic name"
+}
+´´´
+
+**Site para formatar o JSON**
+
+´´´
+https://jsonviewer.stack.hu/ 
+´´´
+<img src="/img/jsonviewer.png" width="40%" />
+
+**Postman**
+O Postman é uma ferramenta gratuita e multiplataforma que ajuda desenvolvedores a criar, testar, compartilhar e documentar APIs: Permite criar e salvar solicitações HTTP e HTTPs, Ler respostas de solicitações, Organizar e agrupar solicitações de API relacionadas, Automatizar testes de API.
+
+<img src="/img/postman.png" width="40%" />
+
+**Servidor do aplicativo** 
 ```
 http://10.0.0.5/var/www/html/webhookPdS
 ```
