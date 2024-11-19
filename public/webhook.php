@@ -20,6 +20,14 @@ if ($_SERVER['REQUEST_METHOD'] != 'POST') {
     exit();
 }
 
+
+$alarmFile = '../logs/status.txt';
+
+if (!file_exists($alarmFile) || file_get_contents($alarmFile) == '0') {
+    echo json_encode(['error' => 'Alarme desativado.']);
+    exit();
+}
+
 $input = file_get_contents("php://input");
 $data = json_decode($input, true);
 

@@ -10,7 +10,7 @@ $(document).ready(function() {
         try {
             var response = JSON.parse(data);
             if (response.status === 'success') {
-                updateButtonState(response.initial_status);
+                updateButtonState(response.currentStatus == 1 ? 'Alarme_Ligado' : 'Alarme_Desligado');
             } else {
                 updateFooter("Erro: " + response.message);
             }
@@ -32,8 +32,9 @@ $(document).ready(function() {
                 
                 // Atualiza o texto, cor do botão e o rodapé com base na resposta
                 if (response.status === 'success') {
-                    updateButtonState(alarmStatus);
+                    updateButtonState(response.currentStatus == 1 ? 'Alarme_Ligado' : 'Alarme_Desligado');
                     updateFooter(response.message);
+                    updateLog();
                 } else {
                     updateFooter("Erro: " + response.message);
                 }
@@ -65,7 +66,7 @@ $(document).ready(function() {
     function updateLog() {
         $.get("get_log_alarm.php", function(data) {
             try {
-                var logEntries = JSON.parse(data);
+                var logEntries = JSON.parse(data).reverse();
                 var logHtml = '';
 
                 // Cria as linhas da tabela de log com os dados recebidos

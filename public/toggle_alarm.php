@@ -16,6 +16,7 @@ $username = "mqtt";
 $password = "planeta";
 $topic = "status_alarm";
 $logFile = '../logs/mqtt_log.txt';
+$alarmFile = '../logs/status.txt';
 
 try {
     // Cria o diretório de logs, caso não exista
@@ -23,46 +24,40 @@ try {
         mkdir('../logs', 0777, true);
     }
 
-    // Conecta ao broker MQTT
-    $mqtt = new phpMQTT($server, $port, "webhookPdS_client");
-    if (!$mqtt->connect(true, NULL, $username, $password)) {
-        throw new Exception("Erro ao conectar ao Broker MQTT.");
-    }
-
     // Verifica o status atual do tópico
     $initialStatus = "Alarme Desligado";
-    $statusReceived = false;
-
-    $mqtt->subscribe([$topic => ['qos' => 0, 'function' => function($topic, $msg) use (&$initialStatus, &$statusReceived) {
-        $initialStatus = $msg;
-        $statusReceived = true;
-    }]], 0);
-
-    // Aguarda uma mensagem até ser recebida ou até o timeout de 5 segundos
-    $timeout = time() + 5;
-    while ($mqtt->proc() && time() < $timeout && !$statusReceived) {
+    
+    // Verifica se o arquivo de status do alarme existe, se não, cria com o valor "0"
+    if (!file_exists($alarmFile)) {
+        file_put_contents($alarmFile, "0");
     }
-    $mqtt->close();
 
-    // Publica a mensagem recebida via POST no tópico MQTT
-    if (isset($_POST['status'])) {
-        $status = $_POST['status'];
-        $mqtt = new phpMQTT($server, $port, "webhookPdS_client");
+    // Lê o conteúdo do arquivo de status do alarme
+    $currentStatus = file_get_contents($alarmFile);
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // Inverte o valor atual do status do alarme
+        $newStatus = ($currentStatus == "0") ? "1" : "0";
+        file_put_contents($alarmFile, $newStatus);
+
+        // Publica o novo status no broker MQTT
+        $mqtt = new phpMQTT($server, $port, "ClientID" . rand());
         if ($mqtt->connect(true, NULL, $username, $password)) {
-            $mqtt->publish($topic, $status, 0);
+            $mqtt->publish($topic, $newStatus, 0);
             $mqtt->close();
-
-            // Registra a mensagem no arquivo de log
-            $logMessage = date('Y-m-d H:i:s') . " - Status: " . $status . "\n";
-            file_put_contents($logFile, $logMessage, FILE_APPEND | LOCK_EX);
-
-            // Retorna uma resposta JSON indicando sucesso
-            echo json_encode(['status' => 'success', 'message' => 'Alarme atualizado para: ' . $status, 'initial_status' => $status]);
         }
+
+        // Registra a mudança no arquivo de log
+        $logMessage = date('Y-m-d H:i:s') . " - Status do alarme alterado para: " . ($newStatus == '1' ? 'Alarme Ligado' : 'Alarme Desligado') . "\n";
+        file_put_contents($logFile, $logMessage, FILE_APPEND | LOCK_EX);
+
+        // Retorna uma resposta JSON indicando sucesso
+        echo json_encode(array('status' => 'success', 'currentStatus' => $newStatus));
     } else {
-        // Retorna o status inicial se nenhum POST for feito
-        echo json_encode(['status' => 'success', 'initial_status' => $initialStatus]);
+        // Retorna uma resposta JSON indicando que o método não é permitido
+        echo json_encode(['status' => 'success', 'currentStatus' => $currentStatus]);
     }
+
 } catch (Exception $e) {
     // Em caso de erro, registra o erro no arquivo de log e retorna uma resposta JSON indicando falha
     $logMessage = date('Y-m-d H:i:s') . " - Erro: " . $e->getMessage() . "\n";
