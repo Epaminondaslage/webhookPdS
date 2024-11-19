@@ -23,9 +23,20 @@
         <h1>Controle de Alarme</h1>
         <button id="toggleAlarm" class="link-button" style="background-color: red;">Alarme Desligado</button>
         <h2>Log de Eventos</h2>
-        <div id="logContainer">
+        <!-- Cabeçalho da tabela movido para fora do container -->
+        <div id="tableHeader">
             <table>
-                <thead><tr><th>Horário</th><th>Tópico</th><th>Mensagem</th></tr></thead>
+                <thead>
+                    <tr>
+                        <th>Horário</th>
+                        <th>Mensagem</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+        <!-- Container com o corpo da tabela -->
+        <div id="logContainer" class="log-container">
+            <table>
                 <tbody id="logTable"></tbody>
             </table>
         </div>

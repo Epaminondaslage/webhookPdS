@@ -48,7 +48,7 @@ try {
         }
 
         // Registra a mudança no arquivo de log
-        $logMessage = date('Y-m-d H:i:s') . " - Status do alarme alterado para: " . ($newStatus == '1' ? 'Alarme Ligado' : 'Alarme Desligado') . "\n";
+        $logMessage = date('Y-m-d H:i:s') . " - Status do alarme alterado para: " . ($newStatus == '1' ? 'Ligado' : 'Desligado') . "\n";
         file_put_contents($logFile, $logMessage, FILE_APPEND | LOCK_EX);
 
         // Retorna uma resposta JSON indicando sucesso
