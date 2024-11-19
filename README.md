@@ -1,6 +1,22 @@
-<img src="/img/webhooker.jpg">
+## Sistema de Alarme por Vídeo Analítico
 
-# Webhook Sitio Pé de Serra
+## Arquitetura do Sistema
+
+<img src="/img/arquitetura.png" width="40%" />
+
+## Soluções empregadas
+
+* Visicomp
+* Webhook
+* MQTT
+* Acionamentos por Esp32
+# Visicomp
+
+
+
+# Webhook Sítio Pé de Serra
+
+<img src="/img/webhooker.jpg" width="10%" />
 
 ## O que é Webhook
 
@@ -29,15 +45,49 @@ Um webhook funciona como um "ponto de escuta" que recebe dados automaticamente. 
 * Tempo Real: Notifica assim que um evento ocorre, ao contrário do polling, que pode ter atrasos.
 * Escalabilidade: Suporta uma comunicação mais rápida e simplificada entre vários sistemas.
 
-## Diagrama de conexões 
-
-<img src="/img/arquitetura.png" width="50%" />
-
 ##  WebhookPdS
 
 Projeto para rodar em servidor Linux 10.0.0.5 , com os arquivos e diretórios organizados conforme a árvore abaixo. O projeto envolve criação de um webhook em PHP que recebe um JSON via POST, processa-o para subscrever em um broker MQTT e exibe o log em uma interface web. o sistema pose ser desativado através de um botao na página html.  
 
-**Servidor** 
+##  JSON 
+
+**URL do JSON**:
+
+```
+http://10.0.0.5/webhookPdS/public/webhook.php
+```
+
+**JSON do Visicomp**:
+
+``` 
+{
+  "event_type": "object_detection_event",
+  "event": {
+    "camera_id": 0,
+    "analytics_id": 0,
+    "event_timestamp": "yyyy-mm-ddTHH:ii:ss",
+    "video_filename": "<path_to_video>",
+    "thumbnail_filename": "<path_to_image_thumbnail>"
+  },
+  "camera_name": "cam name",
+  "analytics_name": "analytic name"
+}
+```
+
+**Site para formatar o JSON**
+
+```
+https://jsonviewer.stack.hu/ 
+```
+
+<img src="/img/jsonviewer.png" width="40%" />
+
+**Postman**
+O Postman é uma ferramenta gratuita e multiplataforma que ajuda desenvolvedores a criar, testar, compartilhar e documentar APIs: Permite criar e salvar solicitações HTTP e HTTPs, Ler respostas de solicitações, Organizar e agrupar solicitações de API relacionadas, Automatizar testes de API.
+
+<img src="/img/postman.png" width="40%" />
+
+**Servidor do aplicativo** 
 ```
 http://10.0.0.5/var/www/html/webhookPdS
 ```
@@ -287,8 +337,13 @@ Após rodar o **composer install**, o diretório **vendor/** terá a seguinte es
 
 Certifique-se de que o *vendor/* contém as dependências (como phpMQTT), instaladas com o Composer.
 
+## MQTT
 
-### Opção Controle de Alarme no menu Index.html
+sdsdmwevfgfygcfygefcyfctyrfgcyfygfy
+
+##  Controle de Alarme no menu Index.html
+
+Regra de disparo de alarme e envio de acionamento por MQTT
 
 ```
 webhookPdS/
@@ -307,8 +362,8 @@ webhookPdS/
     └── autoload.php                 # Carregador automático para dependências do MQTT
 
 ```
-Pasta **public/**: Contém os arquivos de frontend acessíveis pelo navegador e os scripts principais PHP que interagem com o MQTT.
-Pasta **css/**: Armazena o arquivo styles.css, que define a aparência visual do projeto.
-Pasta **js/**: Inclui o script_status_alarm.js, responsável pelo controle e atualização do alarme no frontend.
-Pasta **vendor/**: Contém o autoload.php e outras dependências necessárias, como a biblioteca MQTT.
+* Pasta **public/**: Contém os arquivos de frontend acessíveis pelo navegador e os scripts principais PHP que interagem com o MQTT.
+* Pasta **css/**: Armazena o arquivo styles.css, que define a aparência visual do projeto.
+* Pasta **js/**: Inclui o script_status_alarm.js, responsável pelo controle e atualização do alarme no frontend.
+* Pasta **vendor/**: Contém o autoload.php e outras dependências necessárias, como a biblioteca MQTT.
 
