@@ -63,7 +63,7 @@ $(document).ready(function() {
 
     // Função para atualizar o log de eventos periodicamente
     function updateLog() {
-        $.get("get_log.php", function(data) {
+        $.get("get_log_alarm.php", function(data) {
             try {
                 var logEntries = JSON.parse(data);
                 var logHtml = '';
