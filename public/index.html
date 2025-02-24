@@ -2,9 +2,9 @@
 <!-- 
 ****************************************************************************************************
 *         Este arquivo deve ser copiado no diretorio /var/www/html/webhookPdS/public               *
-*                                    VERSAO 11 de Novembro 2024                                    *
+*                        VERSAO 11 de Novembro 2024 - 24/02/2025                                   *
 *                  É executado automaticamente  pelo /webhookPdS/public/index.html                 *
-*  Arquivo Principal do Sistema de Monitoramento de Alarme por visicomp,mqtt e webhook             *
+*  Arquivo Principal do Sistema de Monitoramento de Alarme por video analitico,mqtt e webhook      *
 ****************************************************************************************************
 -->
 <!DOCTYPE html>
@@ -88,14 +88,22 @@
 </head>
 <body>
     <header>
-        <img src="../img/alarm.jpg" alt="Alarme">
-         <h1 style="font-size: 1.5em; color: #333; margin-top: 10px;">Alarme por Vídeo Analítico</h1>
+        <img src="../img/alarm.jpg" alt="Segurança">
+         <h1 style="font-size: 1.5em; color: #333; margin-top: 10px;">Sistemas de Segurança</h1>
     </header>
 
     <nav>
+        <a href="http://10.0.0.141:5000">
+            <img src="../img/frigate.jpg" alt="Frigate">
+            <p>Frigate</p>
+        </a>
          <a href="status_alarm.html">
             <img src="../img/status_alarm.jpg" alt="Status do Alarme">
             <p>Status do Alarme</p>
+        </a>
+        <a href="http://10.0.0.141:5000">
+            <img src="../img/frigate.jpg" alt="Frigate">
+            <p>Frigate</p>
         </a>
            <a href="horario.html">
             <img src="../img/horario.jpg" alt="Horario">
