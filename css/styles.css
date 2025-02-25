@@ -12,6 +12,19 @@ body {
     margin: 0;
     padding: 0;
 }
+/* Botão voltar */
+#btn-voltar {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#btn-voltar:hover {
+    background-color: #333;
+}
 
 /* Contêiner principal centralizado */
 .container {

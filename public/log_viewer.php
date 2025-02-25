@@ -19,6 +19,7 @@
         <header style="text-align: center; padding: 10px;">
         <img src="../img/log.jpg" alt="log webhook" style="max-width: 10%; height: auto;">
         <h1>Logs de Eventos do Webhook</h1>
+        <button id="btn-voltar" onclick="history.back()">Voltar</button>
         <h2>Esta tabela exibe os eventos recebidos pelo webhook e atualiza automaticamente a cada 5 segundos.</h2>
         <table>
             <thead>
