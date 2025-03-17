@@ -50,11 +50,11 @@ $config = require('../config/config.php');
 $mqttClient = new MqttClient($config['mqtt']);
 if ($mqttClient->connect()) {
 
-    // *************************************************************************************************************************************
+    // ********************************************************************************************************************************
     // regra de negocio para acionamento de cameras aqui.
     // basta programar em ifs no objeto $data (que vem as infos da camera) e enviar mensagem para o mqtt usando a biblioteca no formato abaixo
     // data['camera_name'] === 'Rua Principal Ouro Verde'
-    // **************************************************************************************************************************************
+    // *********************************************************************************************************************************
 
     // Atua no Arduino Mini 01
     if($data['camera_name'] === 'Rua Principal Ouro Verde'){
