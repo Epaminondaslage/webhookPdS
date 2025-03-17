@@ -8,11 +8,11 @@
 
 $config = [
     'mqtt' => [
-        'server' => '10.0.0.32',
+        'server' => '10.0.0.141',
         'port' => 1883,
         'username' => 'mqtt',
         'password' => 'planeta',
-        'client_id' => 'webhook_server'
+        'client_id' => 'alarm_set'
     ]
 ];
 return $config;
